@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">karmaauth</string>
+    <string name="document_hint">Выберете тип документа для распознавания и нажмите кнопку добавить</string>
+    <string name="document_upload_error">Что-то пошло не так. Попробовать еще раз?</string>
+    <string name="document_add">Добавить документ</string>
+    <string name="repeat">Повторить</string>
+    <string name="save">Сохранить</string>
+    <string name="check_is_document_correct">Проверьте правильность введенных данных</string>
+    <string-array name="file_source_array">
+        <item>Сделать фото</item>
+        <item>Загрузить из галереи</item>
+    </string-array>
+</resources>

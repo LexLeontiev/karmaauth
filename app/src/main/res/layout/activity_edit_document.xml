@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/root_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:focusableInTouchMode="true"
+        tools:context=".ui.editdocument.EditDocumentActivity">
+
+        <TextView
+            android:id="@+id/document_edit_hint"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/check_is_document_correct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"/>
+
+        <ProgressBar
+            android:id="@+id/document_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/document_first_name"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_edit_hint"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Имя"
+            app:met_primaryColor="@android:color/white"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/document_last_name"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_first_name"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Фамилия"
+            app:met_primaryColor="@android:color/white"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/document_middle_name"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_last_name"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Отчество"
+            app:met_primaryColor="@android:color/white"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/document_extradition_agency"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_middle_name"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Паспорт выдан"
+            app:met_primaryColor="@android:color/white"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/document_extradition_date"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_extradition_agency"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Дата выдачи"
+            app:met_primaryColor="@android:color/white"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/document_unit_code"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:singleLine="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_extradition_date"
+            app:met_baseColor="@android:color/white"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Код подразделения"
+            app:met_primaryColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/document_save"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="@dimen/document_edit_width"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/document_unit_code"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
