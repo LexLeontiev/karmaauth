@@ -35,7 +35,7 @@ class EditDocumentActivity: AppCompatActivity(), EditDocumentContract.View  {
         mUnitCode = findViewById(R.id.document_unit_code)
         mSaveB = findViewById(R.id.document_save)
         mSaveB.setOnClickListener({
-            mPresenter?.saveDocument()
+            finish()
         })
 
         title = "Распознанные данные"

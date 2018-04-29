@@ -105,15 +105,15 @@ class AddDocumentPresenter(private val mView: AddDocumentContract.View)
     }
 
     private fun recognizeExtraditionAgency(bitmap: Bitmap): ServerResponse {
-        return recognizeObject(bitmap, 0.2, 0.1, 0.93, 0.2)
+        return recognizeObject(bitmap, 0.15, 0.1, 0.93, 0.2)
     }
 
     private fun recognizeExtraditionDate(bitmap: Bitmap): ServerResponse {
-        return recognizeObject(bitmap, 0.18, 0.21, 0.4, 0.24)
+        return recognizeObject(bitmap, 0.18, 0.2, 0.41, 0.23)
     }
 
     private fun recognizeUnitCode(bitmap: Bitmap): ServerResponse {
-        return recognizeObject(bitmap, 0.57, 0.21, 0.93, 0.24)
+        return recognizeObject(bitmap, 0.57, 0.17, 0.93, 0.23)
     }
 
     private fun recognizeObject(bitmap: Bitmap, x1: Double, y1: Double, x2: Double, y2: Double)
