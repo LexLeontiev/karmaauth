@@ -3,6 +3,7 @@ package com.lexleontiev.karmaauth.framework.network
 class ServerResponse(private val code: Int, private val body: String?) {
 
     val CODE_OK = 200
+    val CODE_CREATED = 201
 
     fun code(): Int {
         return code
@@ -13,7 +14,7 @@ class ServerResponse(private val code: Int, private val body: String?) {
     }
 
     fun isSuccess() : Boolean {
-        return code == CODE_OK
+        return code == CODE_OK || code == CODE_CREATED
     }
 
     override fun equals(o: Any?): Boolean {

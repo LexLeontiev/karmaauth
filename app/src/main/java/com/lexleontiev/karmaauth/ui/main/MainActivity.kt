@@ -16,8 +16,10 @@ import com.lexleontiev.karmaauth.ui.main.step.correctdoc.CorrectDocContract
 import com.lexleontiev.karmaauth.ui.main.step.correctdoc.CorrectDocFragment
 import com.lexleontiev.karmaauth.ui.main.step.selectdoc.SelectDocContract
 import com.lexleontiev.karmaauth.ui.main.step.selectdoc.SelectDocFragment
+import com.orhanobut.logger.Logger
 import com.stepstone.stepper.StepperLayout
 import com.stepstone.stepper.VerificationError
+import org.opencv.android.OpenCVLoader
 
 
 class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.StepperListener {
@@ -25,6 +27,11 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
     lateinit var mStepperL: StepperLayout
     lateinit var mPresenter: MainContract.Presenter
     lateinit var mProgress: ProgressDialog
+
+    init {
+        if (!OpenCVLoader.initDebug()) Logger.d("Unable to load OpenCV")
+        else Logger.d("OpenCV loaded")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +56,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
     }
 
     override fun showErrorSnackBar(action: () -> Unit) {
-        Snackbar.make(mStepperL, R.string.document_upload_error, Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(mStepperL, R.string.document_upload_error, Snackbar.LENGTH_LONG)
                 .setAction(R.string.repeat) { action.invoke() }
                 .show()
     }

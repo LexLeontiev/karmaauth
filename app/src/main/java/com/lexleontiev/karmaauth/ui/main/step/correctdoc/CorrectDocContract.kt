@@ -11,7 +11,7 @@ interface CorrectDocContract {
 
     interface View : BaseView<Presenter>, Step {
 
-        fun setImage(image: Bitmap)
+        fun setImage(image: Bitmap, points: List<PointF>?)
     }
 
     interface Presenter : BasePresenter {

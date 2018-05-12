@@ -17,13 +17,16 @@ class CompleteDocPresenter(private val mWorkflow: MainContract.Workflow)
     }
 
     override fun start() {
-        val image = mWorkflow.getResultImage()
+        val image = mWorkflow.getVisionManager().getImagesHolder()?.mCroppedImage
         if (image != null) {
             mView?.setImage(image)
         }
     }
 
     override fun complete() {
-        mWorkflow.fileComplete()
+        val image = mWorkflow.getVisionManager().getImagesHolder()?.mCroppedImage
+        if (image != null) {
+            mWorkflow.fileComplete(image)
+        }
     }
 }

@@ -6,12 +6,15 @@ import com.google.gson.JsonObject
 import com.lexleontiev.karmaauth.data.value.Document
 import com.lexleontiev.karmaauth.framework.network.BaseNetworkClient
 import com.lexleontiev.karmaauth.framework.network.ServerResponse
+import com.lexleontiev.karmaauth.framework.vision.ImagesHolder
+import com.lexleontiev.karmaauth.framework.vision.VisionManager
 import com.lexleontiev.karmaauth.ui.main.step.completedoc.CompleteDocContract
 import com.lexleontiev.karmaauth.ui.main.step.completedoc.CompleteDocPresenter
 import com.lexleontiev.karmaauth.ui.main.step.correctdoc.CorrectDocContract
 import com.lexleontiev.karmaauth.ui.main.step.correctdoc.CorrectDocPresenter
 import com.lexleontiev.karmaauth.ui.main.step.selectdoc.SelectDocContract
 import com.lexleontiev.karmaauth.ui.main.step.selectdoc.SelectDocPresenter
+import com.orhanobut.logger.Logger
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -19,22 +22,22 @@ import kotlinx.coroutines.experimental.launch
 import java.io.ByteArrayOutputStream
 
 
-class MainPresenter(private val mView: MainContract.View) : MainContract.Presenter, MainContract.Workflow {
+class MainPresenter(private val mView: MainContract.View) : MainContract.Presenter,
+        MainContract.Workflow {
 
     private val selectDocPresenter: SelectDocContract.Presenter
     private val correctDocPresenter: CorrectDocContract.Presenter
     private val completeDocPresenter: CompleteDocContract.Presenter
 
-    private var mImage: Bitmap? = null
-    private var mProcessedImage: Bitmap? = null
-
     private val mNetworkClient: BaseNetworkClient
+    private val mVisionManager: VisionManager
 
     init {
         selectDocPresenter = SelectDocPresenter(this)
         correctDocPresenter = CorrectDocPresenter(this)
         completeDocPresenter = CompleteDocPresenter(this)
         mNetworkClient = BaseNetworkClient()
+        mVisionManager = VisionManager()
     }
 
     override fun start() {
@@ -46,8 +49,7 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
             mView.showProgress()
 
             val request = async(CommonPool) {
-                mNetworkClient.post("http://37.143.14.239:8000/api/images/parts/",
-                        createRequestBody(image).toString())
+                mNetworkClient.post("http://mzemskov.com/api/images/", createRequestBody(image).toString())
             }
 
             val document = createDocumentOrError(request.await())
@@ -56,12 +58,15 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
                 mView.hideProgress()
             } else {
                 mView.hideProgress()
-                mView.showErrorSnackBar { sendFileForRecognition(mProcessedImage!!) }
+                mView.showErrorSnackBar {
+                    sendFileForRecognition(image)
+                }
             }
         }
     }
 
     private fun createDocumentOrError(response: ServerResponse) : Document? {
+        Logger.d(response)
         if (response.isSuccess()) {
             return Document(null, null,null, null,
                     null, null, null, null,
@@ -73,7 +78,7 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
     private fun createRequestBody(bitmap: Bitmap) : JsonObject {
         val body = JsonObject()
         val imageBase64 = encodeImage(bitmap)
-        body.addProperty("part_image", imageBase64)
+        body.addProperty("image", imageBase64)
         return body
     }
 
@@ -101,25 +106,23 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
      */
 
     override fun fileSelected(image: Bitmap) {
-        mImage = image
-        mView.fileSelected(image != null)
+        mVisionManager.setImagesHolder(ImagesHolder(image))
+        mView.fileSelected(true)
     }
 
     override fun fileProcessed(image: Bitmap) {
-        mProcessedImage = image
+        mVisionManager.getImagesHolder()?.mCroppedImage = image
     }
 
-    override fun fileComplete() {
-        if (mProcessedImage != null) {
-            sendFileForRecognition(mProcessedImage!!)
+    override fun fileComplete(image: Bitmap) {
+        mVisionManager.getImagesHolder()?.mCompleteImage = image
+        val competeImage = mVisionManager.getImagesHolder()?.mCompleteImage
+        if (competeImage != null) {
+            sendFileForRecognition(competeImage)
         }
     }
 
-    override fun getResultImage(): Bitmap? {
-        return mProcessedImage
-    }
-
-    override fun getSelectedImage(): Bitmap? {
-        return mImage
+    override fun getVisionManager(): VisionManager {
+        return mVisionManager
     }
 }

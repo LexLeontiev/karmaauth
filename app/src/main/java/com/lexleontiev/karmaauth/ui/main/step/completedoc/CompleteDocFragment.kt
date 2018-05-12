@@ -12,7 +12,7 @@ import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 
 
-class CompleteDocFragment: Fragment(), Step, CompleteDocContract.View  {
+class CompleteDocFragment : Fragment(), Step, CompleteDocContract.View {
 
     private var mContentView: View? = null
     lateinit var mImageV: ImageView
@@ -75,4 +75,6 @@ class CompleteDocFragment: Fragment(), Step, CompleteDocContract.View  {
     override fun setPresener(presenter: CompleteDocContract.Presenter) {
         mPresenter = presenter
     }
+
+
 }

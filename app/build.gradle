@@ -38,11 +38,14 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.orhanobut:logger:2.1.1'
     implementation 'com.stepstone.stepper:material-stepper:4.3.1'
+    implementation 'com.afollestad.material-dialogs:core:0.8.5.9'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
+
+    implementation project(':openCVLibrary341')
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'

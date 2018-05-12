@@ -1,7 +1,6 @@
 package com.lexleontiev.karmaauth.ui.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -177,7 +176,8 @@ public class DocumentCropImageView extends AppCompatImageView {
      * @return The translated point
      */
     private PointF imagePointToViewPoint(PointF imgPoint) {
-        return mapPointToMatrix(imgPoint, getImageMatrix());
+        Matrix matrix = getImageMatrix();
+        return mapPointToMatrix(imgPoint, matrix);
     }
 
     /**
@@ -288,25 +288,6 @@ public class DocumentCropImageView extends AppCompatImageView {
      * @return True is the quadrilateral is convex
      */
     private boolean isConvexQuadrilateral(PointF ul, PointF ur, PointF lr, PointF ll) {
-        // http://stackoverflow.com/questions/9513107/find-if-4-points-form-a-quadrilateral
-
-        PointF p = ll;
-        PointF q = lr;
-        PointF r = subtractPoints(ur, ll);
-        PointF s = subtractPoints(ul, lr);
-
-        double s_r_crossProduct = crossProduct(r, s);
-        double t = crossProduct(subtractPoints(q, p), s) / s_r_crossProduct;
-        double u = crossProduct(subtractPoints(q, p), r) / s_r_crossProduct;
-
-        if (t < 0 || t > 1.0 || u < 0 || u > 1.0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean isPointInArea(PointF ul, PointF ur, PointF lr, PointF ll) {
         // http://stackoverflow.com/questions/9513107/find-if-4-points-form-a-quadrilateral
 
         PointF p = ll;

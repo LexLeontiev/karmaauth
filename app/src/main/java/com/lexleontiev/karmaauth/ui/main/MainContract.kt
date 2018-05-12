@@ -3,6 +3,7 @@ package com.lexleontiev.karmaauth.ui.main
 import android.graphics.Bitmap
 import com.lexleontiev.karmaauth.data.value.Document
 import com.lexleontiev.karmaauth.data.value.DocumentType
+import com.lexleontiev.karmaauth.framework.vision.VisionManager
 import com.lexleontiev.karmaauth.ui.BasePresenter
 import com.lexleontiev.karmaauth.ui.BaseView
 import com.lexleontiev.karmaauth.ui.main.step.completedoc.CompleteDocContract
@@ -45,10 +46,8 @@ interface MainContract {
 
         fun fileProcessed(image: Bitmap)
 
-        fun fileComplete()
+        fun fileComplete(image: Bitmap)
 
-        fun getSelectedImage() : Bitmap?
-
-        fun getResultImage() : Bitmap?
+        fun getVisionManager() : VisionManager
     }
 }

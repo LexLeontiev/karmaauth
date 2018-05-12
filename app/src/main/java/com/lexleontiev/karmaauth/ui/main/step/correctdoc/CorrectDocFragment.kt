@@ -1,14 +1,12 @@
 package com.lexleontiev.karmaauth.ui.main.step.correctdoc
 
 import android.graphics.Bitmap
+import android.graphics.PointF
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.lexleontiev.karmaauth.R
 import com.lexleontiev.karmaauth.ui.view.DocumentCropImageView
 import com.stepstone.stepper.Step
@@ -18,11 +16,10 @@ import com.stepstone.stepper.VerificationError
 class CorrectDocFragment: Fragment(), Step, CorrectDocContract.View  {
 
     private var mContentView: View? = null
-    lateinit var mDocumentImageV: DocumentCropImageView
-    private var mLayoutId: Int = 0
-
     lateinit var mRootL: ViewGroup
+    lateinit var mDocumentImageV: DocumentCropImageView
 
+    private var mLayoutId: Int = 0
     private var mPresenter: CorrectDocContract.Presenter? = null
 
 
@@ -59,8 +56,9 @@ class CorrectDocFragment: Fragment(), Step, CorrectDocContract.View  {
         mDocumentImageV = mContentView!!.findViewById(R.id.fragment_correct_doc__image)
     }
 
-    override fun setImage(image: Bitmap) {
+    override fun setImage(image: Bitmap, points: List<PointF>?) {
         mDocumentImageV.setImageBitmap(image)
+        mDocumentImageV.points = points
     }
 
     override fun onSelected() {
@@ -78,4 +76,6 @@ class CorrectDocFragment: Fragment(), Step, CorrectDocContract.View  {
     override fun setPresener(presenter: CorrectDocContract.Presenter) {
         mPresenter = presenter
     }
+
+
 }

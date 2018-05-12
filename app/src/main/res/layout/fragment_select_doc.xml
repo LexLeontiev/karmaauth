@@ -11,13 +11,11 @@
         android:id="@+id/fragment_select_doc__hint"
         android:layout_width="@dimen/document_select_width"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/document_select_hint"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_select_doc__select"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +32,8 @@
         app:layout_constraintBottom_toTopOf="@+id/fragment_select_doc__add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_select_doc__hint"/>
+        app:layout_constraintTop_toBottomOf="@+id/fragment_select_doc__hint"
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <Button
         android:id="@+id/fragment_select_doc__add"

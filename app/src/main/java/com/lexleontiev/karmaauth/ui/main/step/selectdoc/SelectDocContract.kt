@@ -27,7 +27,5 @@ interface SelectDocContract {
         fun addDocument(documentType: DocumentType)
 
         fun fileSelected(image: Bitmap)
-
-//        fun sendFileForRecognition(image: Bitmap)
     }
 }
