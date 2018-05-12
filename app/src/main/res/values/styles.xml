@@ -1,11 +1,43 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/cardview_dark_background</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="ms_stepperStyle">@style/CustomStepperLayoutThemeSample</item>
     </style>
+
+    <style name="CustomStepperLayoutThemeSample">
+        <item name="ms_stepperType">tabs</item>
+        <item name="ms_stepperLayoutTheme">@style/DarkCustomStepperLayoutTheme</item>
+        <item name="ms_activeStepColor">@color/colorPrimary</item>
+        <item name="ms_inactiveStepColor">@color/colorStepInactive</item>
+    </style>
+
+    <style name="DarkCustomStepperLayoutTheme" parent="MSDefaultStepperLayoutTheme">
+        <item name="ms_tabsContainerStyle">@style/DarkStepTabsContainerStyle</item>
+        <item name="ms_stepTabTitleStyle">@style/DarkStepTabTitleStyle</item>
+        <item name="ms_stepTabSubtitleStyle">@style/DarkStepTabSubtitleStyle</item>
+        <!--<item name="ms_stepTabNumberStyle">@style/DarkStepTabNumberStyle</item>-->
+    </style>
+
+    <style name="DarkStepTabsContainerStyle" parent="MSStepTabsContainer">
+        <item name="android:background">@color/cardview_dark_background</item>
+    </style>
+
+    <style name="DarkStepTabNumberStyle" parent="MSStepTabNumber">
+        <item name="android:textColor">@color/ms_black</item>
+    </style>
+
+    <style name="DarkStepTabTitleStyle" parent="MSStepTabTitle">
+        <item name="android:textColor">@color/ms_white</item>
+    </style>
+
+    <style name="DarkStepTabSubtitleStyle" parent="MSStepTabSubtitle">
+        <item name="android:textColor">@color/ms_white_54_opacity</item>
+    </style>
+
 
 </resources>

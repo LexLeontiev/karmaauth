@@ -119,25 +119,14 @@ class AddDocumentPresenter(private val mView: AddDocumentContract.View)
     private fun recognizeObject(bitmap: Bitmap, x1: Double, y1: Double, x2: Double, y2: Double)
             : ServerResponse {
         val obj = cropImage(bitmap, x1, y1, x2, y2)
-        return mNetworkClient.post("https://vision.googleapis.com/v1/images:annotate?key=AIzaSyB3MHQNEaNltuEEPLf1GsVKMPRd4uDIcPs",
+        return mNetworkClient.post("http://37.143.14.239:8000/api/images/parts/",
                 createRequestBody(obj).toString())
     }
 
     private fun createRequestBody(bitmap: Bitmap) : JsonObject {
         val body = JsonObject()
-        val requests = JsonArray()
-        val request = JsonObject()
-        val features = JsonArray()
-        val feature = JsonObject()
-        feature.addProperty("type","TEXT_DETECTION")
-        features.add(feature)
-        request.add("features",features)
-        val imageObject = JsonObject()
         val imageBase64 = encodeImage(bitmap)
-        imageObject.addProperty("content", imageBase64)
-        request.add("image",imageObject)
-        requests.add(request)
-        body.add("requests", requests)
+        body.addProperty("part_image", imageBase64)
         return body
     }
 

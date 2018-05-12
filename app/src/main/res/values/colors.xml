@@ -3,4 +3,9 @@
     <color name="colorPrimary">#fc1853</color>
     <color name="colorPrimaryDark">#ca1141</color>
     <color name="colorAccent">#e0c44e</color>
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorNavBarButton">#FFFFFF</color>
+    <color name="colorStepInactive">#44000000</color>
+    <color name="colorStepActive">#e0c44e</color>
+    <color name="colorNavButtonInactive">#777777</color>
 </resources>

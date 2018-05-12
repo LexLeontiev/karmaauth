@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">karmaauth</string>
-    <string name="document_hint">Выберете тип документа для распознавания и нажмите кнопку добавить</string>
+    <string name="document_select_hint">Выберете документ для распознавания</string>
+    <string name="document_correct_hint">Проверьте правильность выделения области документа</string>
+    <string name="document_complete_hint">Если документ выделен корректно - отправьте его на
+        распознавание</string>
+    <string name="document_selected_hint">Документ выбран</string>
     <string name="document_upload_error">Что-то пошло не так. Попробовать еще раз?</string>
     <string name="document_add">Добавить документ</string>
+    <string name="document_selected">Изменить документ</string>
     <string name="repeat">Повторить</string>
     <string name="save">Сохранить</string>
     <string name="check_is_document_correct">Проверьте правильность введенных данных</string>
@@ -10,4 +15,7 @@
         <item>Сделать фото</item>
         <item>Загрузить из галереи</item>
     </string-array>
+
+    <string name="step_select">Выберете документ</string>
+    <string name="step_correct">Проверьте документ</string>
 </resources>

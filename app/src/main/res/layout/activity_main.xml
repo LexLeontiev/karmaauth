@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.stepstone.stepper.StepperLayout
+    android:id="@+id/activity_main__stepper"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:ms_backButtonColor="@color/colorNavBarButton"
+    app:ms_bottomNavigationBackground="@color/colorTransparent"
+    app:ms_completeButtonColor="@color/colorAccent"
+    app:ms_nextButtonColor="@color/colorNavBarButton"
+    app:ms_stepperType="tabs"
+    tools:theme="@style/AppTheme"/>
