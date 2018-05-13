@@ -1,6 +1,9 @@
 package com.lexleontiev.karmaauth.ui.main
 
 import android.graphics.Bitmap
+import com.google.gson.Gson
+import com.google.gson.JsonParser
+import com.google.gson.stream.JsonReader
 import com.lexleontiev.karmaauth.data.source.ImageSource
 import com.lexleontiev.karmaauth.data.value.Document
 import com.lexleontiev.karmaauth.framework.network.ServerResponse
@@ -66,7 +69,10 @@ class MainPresenter(private val mView: MainContract.View) : MainContract.Present
     private fun createDocumentOrError(response: ServerResponse) : Document? {
         Logger.d(response)
         if (response.isSuccess()) {
-            return Document()
+            val json = JsonParser().parse(response.body())
+            val data = json.asJsonObject.getAsJsonObject("data")
+            val doc = Gson().fromJson(data.toString(), Document::class.java)
+            return doc
         }
         return null
     }

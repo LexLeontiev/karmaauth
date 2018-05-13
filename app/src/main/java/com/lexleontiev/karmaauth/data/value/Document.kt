@@ -13,7 +13,8 @@ data class Document(var id: Int? = null,
                     @SerializedName("last_name") var lastName: String? = null,
                     @SerializedName("middle_name") var middleName: String? = null,
                     var extraditionAgency: String? = null,
-                    var extraditionDate: String? = null,
-                    var unitCode: String? = null,
-                    @SerializedName("passport_image_path") var passportImagePath: String? = null)
+                    @SerializedName("recieve_date") var extraditionDate: String? = null,
+                    @SerializedName("division_number") var unitCode: String? = null,
+                    @SerializedName("passport_image_path") var passportImagePath: String? = null,
+                    @SerializedName("passport_number") var passportNumber: String? = null)
     : Parcelable

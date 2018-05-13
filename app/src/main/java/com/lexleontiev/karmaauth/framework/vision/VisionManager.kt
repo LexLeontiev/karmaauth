@@ -106,7 +106,7 @@ class VisionManager {
 
             // approx.total() возвращает массив аппроксимированных линий в контуре - для выделения
             // требуемой области необходимо наличие 4 ребер(четырехугольник)
-            if (approx.total() == 4L && Imgproc.contourArea(contour) > 150) {
+            if (approx.total() == 4L && Imgproc.contourArea(contour) > 600) {
                 largest = approx
                 break
             }
