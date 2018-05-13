@@ -31,11 +31,11 @@ class SelectDocFragment: Fragment(), Step, SelectDocContract.View  {
     private var mContentView: View? = null
     private var mLayoutId: Int = 0
 
-    lateinit var mRootL: ViewGroup
-    lateinit var mDocumentDropdownV: AppCompatSpinner
-    lateinit var mDocumentHintV: TextView
-    lateinit var mDocumentAddB: Button
-    lateinit var mDocumentSelectedHintV: TextView
+    private lateinit var mRootL: ViewGroup
+    private lateinit var mDocumentDropdownV: AppCompatSpinner
+    private lateinit var mDocumentHintV: TextView
+    private lateinit var mDocumentAddB: Button
+    private lateinit var mDocumentSelectedHintV: TextView
 
     private var mPresenter: SelectDocContract.Presenter? = null
 

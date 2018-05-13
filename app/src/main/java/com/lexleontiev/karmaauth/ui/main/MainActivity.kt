@@ -1,5 +1,6 @@
 package com.lexleontiev.karmaauth.ui.main
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
@@ -41,15 +42,17 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
         mStepperL.adapter = StepperAdapter(supportFragmentManager, this, this)
         mStepperL.isTabNavigationEnabled = false
         fileSelected(false)
-        mProgress = ProgressDialog(this, R.style.AppTheme)
-        mProgress.setTitle(R.string.wait)
+        mProgress = ProgressDialog(this)
+        mProgress.setMessage(getString(R.string.wait))
         mProgress.setCancelable(false)
         mPresenter = MainPresenter(this)
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        mStepperL.adapter.findStep(1).onSelected()
+        AlertDialog.Builder(this).setTitle(R.string.main_on_back_pressed)
+                .setPositiveButton(R.string.exit,{ _,_ -> finish()})
+                .setNegativeButton(R.string.cancel,{d,_ -> d.cancel()})
+                .show()
     }
 
     override fun showProgress() {

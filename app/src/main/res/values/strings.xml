@@ -23,4 +23,7 @@
 
     <string name="step_select">Выберете документ</string>
     <string name="step_correct">Проверьте документ</string>
+    <string name="main_on_back_pressed">Выйти из приложения?</string>
+    <string name="exit">Выйти</string>
+    <string name="cancel">Отмена</string>
 </resources>
