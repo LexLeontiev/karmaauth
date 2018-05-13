@@ -2,7 +2,6 @@ package com.lexleontiev.karmaauth.ui.main
 
 import android.graphics.Bitmap
 import com.lexleontiev.karmaauth.data.value.Document
-import com.lexleontiev.karmaauth.data.value.DocumentType
 import com.lexleontiev.karmaauth.framework.vision.VisionManager
 import com.lexleontiev.karmaauth.ui.BasePresenter
 import com.lexleontiev.karmaauth.ui.BaseView
@@ -27,6 +26,10 @@ interface MainContract {
         fun showToast(text: String)
 
         fun fileSelected(selected: Boolean)
+
+        fun goToPreviousStep(position: Int)
+
+        fun goToNextStep(position: Int)
     }
 
     interface Presenter : BasePresenter {
@@ -40,7 +43,11 @@ interface MainContract {
         fun getCompleteDocPresenter(): CompleteDocContract.Presenter
     }
 
-    interface Workflow {
+    interface WorkflowController {
+
+        fun goBack(position: Int)
+
+        fun goNext(position: Int)
 
         fun fileSelected(image: Bitmap)
 

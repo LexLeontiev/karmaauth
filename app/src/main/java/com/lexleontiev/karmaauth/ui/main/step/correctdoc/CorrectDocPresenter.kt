@@ -4,7 +4,7 @@ import android.graphics.*
 import com.lexleontiev.karmaauth.ui.main.MainContract
 
 
-class CorrectDocPresenter(private val mWorkflow: MainContract.Workflow)
+class CorrectDocPresenter(private val mWorkflow: MainContract.WorkflowController)
     : CorrectDocContract.Presenter {
 
     private var mView: CorrectDocContract.View? = null

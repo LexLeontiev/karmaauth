@@ -2,7 +2,7 @@ package com.lexleontiev.karmaauth.ui.main.step.completedoc
 
 import com.lexleontiev.karmaauth.ui.main.MainContract
 
-class CompleteDocPresenter(private val mWorkflow: MainContract.Workflow)
+class CompleteDocPresenter(private val mWorkflow: MainContract.WorkflowController)
     : CompleteDocContract.Presenter {
 
     private var mView: CompleteDocContract.View? = null

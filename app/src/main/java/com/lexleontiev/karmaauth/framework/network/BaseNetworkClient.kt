@@ -10,15 +10,15 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 
-class BaseNetworkClient {
+const val TIMEOUT_CONNECT_SECONDS = 15
+const val CONTENT_TYPE_KEY = "Content-Type"
+const val CONTENT_TYPE_JSON = "application/json"
+const val BASE_URL = "http://mzemskov.com/api/"
+
+open class BaseNetworkClient {
 
     companion object {
-
-        internal val TIMEOUT_CONNECT_SECONDS = 15
-
-        private val JSON = MediaType.parse("application/json; charset=utf-8")
-        private val CONTENT_TYPE_KEY = "Content-Type"
-        private val CONTENT_TYPE_JSON = "application/json"
+        val JSON = MediaType.parse("application/json; charset=utf-8")
     }
 
     private val mOkHttpClient: OkHttpClient

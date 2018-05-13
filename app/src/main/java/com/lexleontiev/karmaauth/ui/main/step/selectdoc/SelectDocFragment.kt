@@ -19,12 +19,12 @@ import android.widget.Button
 import android.widget.TextView
 import com.lexleontiev.karmaauth.R
 import com.lexleontiev.karmaauth.data.value.DocumentType
-import com.lexleontiev.karmaauth.ui.adddocument.CAMERA_REQUEST_CODE
-import com.lexleontiev.karmaauth.ui.adddocument.GALLERY_REQUEST_CODE
 import com.stepstone.stepper.Step
 import com.stepstone.stepper.VerificationError
 import java.io.InputStream
 
+const val CAMERA_REQUEST_CODE = 0
+const val GALLERY_REQUEST_CODE = 1
 
 class SelectDocFragment: Fragment(), Step, SelectDocContract.View  {
 
@@ -100,7 +100,7 @@ class SelectDocFragment: Fragment(), Step, SelectDocContract.View  {
 
     override fun showSelectDocumentSourceDialog() {
         val db = AlertDialog.Builder(context, 0)
-        db.setTitle("Выберете источник документа")
+        db.setTitle(R.string.select_document_source)
         db.setItems(R.array.file_source_array) { dialogInterface, i ->
             var intent: Intent? = null
             var requestCode = -1

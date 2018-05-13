@@ -1,13 +1,14 @@
 package com.lexleontiev.karmaauth.framework.vision
 
 import android.graphics.*
+import android.util.Base64
 import com.orhanobut.logger.Logger
 import org.opencv.android.Utils
 import org.opencv.android.Utils.bitmapToMat
 import org.opencv.core.*
 import org.opencv.core.Point
 import org.opencv.imgproc.Imgproc
-import java.lang.Double
+import java.io.ByteArrayOutputStream
 import java.util.*
 
 const val MAX_HEIGHT = 500
@@ -24,6 +25,13 @@ class VisionManager {
         return mImagesHolder
     }
 
+    fun encodeImage(bm: Bitmap): String {
+        val outputStream = ByteArrayOutputStream()
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        val b = outputStream.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
+    }
+
     /**
      * Attempt to find the four corner points for the largest contour in the image.
      *
@@ -37,16 +45,16 @@ class VisionManager {
         Utils.bitmapToMat(getResizedBitmap(bitmap), image)
         Utils.bitmapToMat(bitmap, orig)
 
-        val edges = edgeDetection(orig)
+        val edges = edgeDetection(image)
         val largest = findLargestContour(edges)
 
         if (largest != null) {
             val points = sortPoints(largest.toArray())
             result = ArrayList()
-            result.add(PointF(Double.valueOf(points[0].x).toFloat(), Double.valueOf(points[0].y).toFloat()))
-            result.add(PointF(Double.valueOf(points[1].x).toFloat(), Double.valueOf(points[1].y).toFloat()))
-            result.add(PointF(Double.valueOf(points[2].x).toFloat(), Double.valueOf(points[2].y).toFloat()))
-            result.add(PointF(Double.valueOf(points[3].x).toFloat(), Double.valueOf(points[3].y).toFloat()))
+            result.add(PointF(points[0].x.toFloat(), points[0].y.toFloat()))
+            result.add(PointF(points[1].x.toFloat(), points[1].y.toFloat()))
+            result.add(PointF(points[2].x.toFloat(), points[2].y.toFloat()))
+            result.add(PointF(points[3].x.toFloat(), points[3].y.toFloat()))
             largest.release()
         } else {
             Logger.d("Can't find rectangle!")
@@ -80,23 +88,25 @@ class VisionManager {
         val contours = ArrayList<MatOfPoint>()
         Imgproc.findContours(src, contours, Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE)
 
-        // Get the 5 largest contours
-        Collections.sort(contours) { o1, o2 ->
-            val area1 = Imgproc.contourArea(o1)
-            val area2 = Imgproc.contourArea(o2)
-            (area2 - area1).toInt()
-        }
-        if (contours.size > 5) contours.subList(4, contours.size - 1).clear()
+        val filteredContours = contours
+                .sortedWith(compareBy({Imgproc.contourArea(it)})) // сортируем контуры по площади
+                .takeLast(5) // выбираем первые 5 самых крупных
 
         var largest: MatOfPoint2f? = null
-        for (contour in contours) {
+
+        // из всех оставшихся контуров пытаемся найти четырехугольник
+        for (contour in filteredContours) {
             val approx = MatOfPoint2f()
             val c = MatOfPoint2f()
             contour.convertTo(c, CvType.CV_32FC2)
-            Imgproc.approxPolyDP(c, approx, Imgproc.arcLength(c, true) * 0.02, true)
+            // аппроксимируем контуры до более ровных
+            Imgproc.approxPolyDP(c, approx,
+                    Imgproc.arcLength(c, true) * 0.02,
+                    true)
 
+            // approx.total() возвращает массив аппроксимированных линий в контуре - для выделения
+            // требуемой области необходимо наличие 4 ребер(четырехугольник)
             if (approx.total() == 4L && Imgproc.contourArea(contour) > 150) {
-                // the contour has 4 points, it's valid
                 largest = approx
                 break
             }
@@ -217,8 +227,8 @@ class VisionManager {
         Imgproc.cvtColor(src, src, Imgproc.COLOR_BGR2GRAY)
 
         // Some other approaches
-        Imgproc.adaptiveThreshold(src, src, 255.toDouble(), Imgproc.ADAPTIVE_THRESH_MEAN_C,
-                Imgproc.THRESH_BINARY, 15, 6.toDouble())
+//        Imgproc.adaptiveThreshold(src, src, 255.toDouble(), Imgproc.ADAPTIVE_THRESH_MEAN_C,
+//                Imgproc.THRESH_BINARY, 15, 6.toDouble())
 //                Imgproc.threshold(src, src, 0.toDouble(), 255.toDouble(),
 //                        Imgproc.THRESH_BINARY + Imgproc.THRESH_OTSU)
 
@@ -230,46 +240,6 @@ class VisionManager {
         org.opencv.android.Utils.matToBitmap(src, bm)
 
         return bm
-    }
-
-    fun cropImage(image: Bitmap, points: List<PointF>): Bitmap {
-        val cropImage = Bitmap.createBitmap(image.width, image.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(cropImage)
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.color = -0x1000000
-
-        val path = Path()
-        path.reset()
-        path.moveTo(points[0].x, points[0].y)
-        path.lineTo(points[1].x, points[1].y)
-        path.lineTo(points[2].x, points[2].y)
-        path.lineTo(points[3].x, points[3].y)
-        path.close()
-
-        canvas.drawPath(path, paint)
-
-        // Keeps the source pixels that cover the destination pixels,
-        // discards the remaining source and destination pixels.
-        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        canvas.drawBitmap(image, 0F, 0F, paint)
-
-        // находим максимально полезную область изображения
-        var minX = points[0].x
-        var maxX = points[0].x
-        var minY = points[0].y
-        var maxY = points[0].y
-        for (point in points) {
-            if (point.x < minX) minX = point.x
-            if (point.x > maxX) maxX = point.x
-            if (point.y < minY) minY = point.y
-            if (point.y > maxY) maxY = point.y
-        }
-        val startX = minX.toInt()
-        val startY = minY.toInt()
-        val width = maxX.toInt() - startX
-        val height = maxY.toInt() - startY
-        val newImage = Bitmap.createBitmap(cropImage, startX, startY, width, height)
-        return newImage
     }
 
     fun completeImage(image: Bitmap, points: List<PointF>): Bitmap {

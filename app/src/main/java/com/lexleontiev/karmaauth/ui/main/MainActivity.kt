@@ -42,9 +42,14 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
         mStepperL.isTabNavigationEnabled = false
         fileSelected(false)
         mProgress = ProgressDialog(this, R.style.AppTheme)
-        mProgress.setTitle("Подождите...")
+        mProgress.setTitle(R.string.wait)
         mProgress.setCancelable(false)
         mPresenter = MainPresenter(this)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        mStepperL.adapter.findStep(1).onSelected()
     }
 
     override fun showProgress() {
@@ -53,6 +58,18 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
 
     override fun hideProgress() {
         mProgress.hide()
+    }
+
+    override fun goToPreviousStep(position: Int) {
+        if (position > 0) {
+            mStepperL.adapter.findStep(position - 1).onSelected()
+        }
+    }
+
+    override fun goToNextStep(position: Int) {
+        if (position <  mStepperL.adapter.count) {
+            mStepperL.adapter.findStep(position + 1).onSelected()
+        }
     }
 
     override fun showErrorSnackBar(action: () -> Unit) {
@@ -71,18 +88,17 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
-
     override fun setPresener(presenter: MainContract.Presenter) {
         mPresenter = presenter
         mPresenter.start()
     }
 
     override fun onStepSelected(newStepPosition: Int) {
-        showToast("onStepSelected! -> " + newStepPosition)
+        Logger.i("onStepSelected! -> " + newStepPosition)
     }
 
     override fun onError(verificationError: VerificationError?) {
-        showToast("onError! -> " + verificationError?.getErrorMessage())
+        Logger.i("onError! -> " + verificationError?.getErrorMessage())
     }
 
     override fun onReturn() {
@@ -90,7 +106,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, StepperLayout.Stepp
     }
 
     override fun onCompleted(completeButton: View?) {
-        showToast("onCompleted!")
+        Logger.i("onCompleted!")
     }
 
     override fun createSelectStep(): SelectDocContract.View {

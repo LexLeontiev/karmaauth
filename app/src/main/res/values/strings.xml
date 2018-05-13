@@ -8,8 +8,13 @@
     <string name="document_upload_error">Что-то пошло не так. Попробовать еще раз?</string>
     <string name="document_add">Добавить документ</string>
     <string name="document_selected">Изменить документ</string>
+    <string name="select_document_source">Выберете источник документа</string>
     <string name="repeat">Повторить</string>
+    <string name="wait">Подождите, пожалуйста...</string>
     <string name="save">Сохранить</string>
+    <string name="next">Далее</string>
+    <string name="previous">Назад</string>
+    <string name="send_to_approve">Отправить</string>
     <string name="check_is_document_correct">Проверьте правильность введенных данных</string>
     <string-array name="file_source_array">
         <item>Сделать фото</item>
