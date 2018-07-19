@@ -1,6 +1,6 @@
 Karma Auth App 
 ===================
-Karma Auth App is an android client for karma auth service
+Karma Auth App is an android client for [karma auth service](https://github.com/Dimitreee/karmaAuth_theme6).
 
 Screenshots
 -----------
